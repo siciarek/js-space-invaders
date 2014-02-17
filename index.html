@@ -10,6 +10,8 @@
 <canvas id="display"></canvas>
 
 <script>
+    var game = null;
+
     var FPS = 30;
 
     var display = null;
@@ -29,6 +31,7 @@
 <script src="js/Invasion.js"></script>
 <script src="js/Player.js"></script>
 <script src="js/Saucer.js"></script>
+<script src="js/Game.js"></script>
 <script src="js/Display.js"></script>
 <script src="js/controls.js"></script>
 <script>
@@ -42,6 +45,8 @@
         display = new Display();
         player = new Player(display);
         invasion = new Invasion(display);
+
+        game = new Game();
 
         var tics = Math.ceil(1000 / FPS);
         interval = window.setInterval(update, tics);

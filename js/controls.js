@@ -20,6 +20,12 @@ $(document).keydown(function (evt) {
 });
 
 $(document).keyup(function (evt) {
+
+    if (interval === null && evt.keyCode === KEY_SPACE) {
+        main();
+        return;
+    }
+
     if (evt.keyCode === KEY_SPACE || evt.keyCode === KEY_UP) {
         player.fire();
     }

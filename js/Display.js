@@ -1,4 +1,5 @@
 var Display = function (canvas) {
+
     canvas = canvas || 'display';
     this.canvas = document.getElementById(canvas);
     this.canvas.setAttribute('width', 800);
@@ -7,14 +8,6 @@ var Display = function (canvas) {
     this.context = this.canvas.getContext('2d');
     this.width = this.canvas.width;
     this.height = this.canvas.height;
-
-    this.images = {
-        win: new Image(),
-        lose: new Image()
-    };
-
-    this.images.win.src = 'images/game/win.png';
-    this.images.lose.src = 'images/game/lose.png';
 
     this.init();
     this.frame = 0;
@@ -115,13 +108,16 @@ Display.prototype.run = function () {
     // Check if Game is over:
 
     if (win === true) {
-        this.context.drawImage(this.images.win, 0, (this.height - this.images.win.height) / 2)
+        this.context.drawImage(game.images.win, 0, (this.height - game.images.win.height) / 2);
         window.clearInterval(interval);
+        interval = null;
         return;
     }
 
     if (lose === true) {
-        this.context.drawImage(this.images.lose, 0, (this.height - this.images.lose.height) / 2)
+        this.context.drawImage(game.images.lose, 0, (this.height - game.images.lose.height) / 2);
         window.clearInterval(interval);
+        interval = null;
+        return;
     }
 };

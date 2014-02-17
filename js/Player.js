@@ -44,12 +44,22 @@ Player.prototype.hit = function (projectile) {
 
 
 Player.prototype.fire = function() {
+
+    for(var id in projectiles) {
+        if(projectiles.hasOwnProperty(id)) {
+            if(projectiles[id].type === 'player') {
+                return;
+            }
+        }
+    }
+
     var p = new Projectile(
         this.x + this.width / 2,
         this.y - this.height,
-        -5,
+        -15,
         'player'
     );
+
 
     projectiles[p.id] = p;
 };
