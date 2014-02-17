@@ -1,4 +1,4 @@
 js-space-invaders
 =================
 
-JavaScript port of Space Invaders
+JavaScript port of Space Invaders.
