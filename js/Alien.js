@@ -11,8 +11,7 @@ var Alien = function (type, imgdir) {
     images[1].src = imgdir + '/alien/' + type + '/1.png'; // frame II
     images[2].src = imgdir + '/alien/X.png';              // explode
 
-    this.alive = true;
-    this.exploded = false;
+    this.type = type;
 
     this.images = images;
     this.imgindex = 0;
@@ -23,11 +22,34 @@ var Alien = function (type, imgdir) {
 
     this.x = 0;
     this.y = 0;
+
+    this.alive = true;
+    this.exploded = false;
 };
 
 Alien.prototype.move = function (x, y) {
     this.x = x;
     this.y = y;
+};
+
+Alien.prototype.fire = function() {
+
+    var types = [
+        'plunger',
+        'rolling',
+        'squigly'
+    ];
+
+    var type = Math.floor(Math.random() * 1000) % types.length;
+
+    var p = new Projectile(
+        this.x + this.width / 2,
+        this.y + this.height,
+        5,
+        types[type]
+    );
+
+    projectiles[p.id] = p;
 };
 
 Alien.prototype.animate = function (frame) {
@@ -45,10 +67,20 @@ Alien.prototype.animate = function (frame) {
 };
 
 Alien.prototype.hit = function (projectile) {
-    var hit = projectile.x > this.x
-        && projectile.x < this.x + this.width
-        && projectile.y > this.y - this.height
-        && projectile.y < this.y;
+
+    var xoffsets = {
+        A: [2, 2],
+        B: [3, 2],
+        C: [4, 4]
+    };
+
+    var xoff = xoffsets[this.type];
+
+    var hit =
+        projectile.x > (this.x + xoff[0] * 4)
+            && projectile.x < (this.x + this.width - xoff[1] * 4)
+            && projectile.y > (this.y - this.height)
+            && projectile.y < this.y;
 
     if (hit === true) {
         this.alive = false;

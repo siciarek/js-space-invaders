@@ -8,6 +8,14 @@ var Display = function (canvas) {
     this.width = this.canvas.width;
     this.height = this.canvas.height;
 
+    this.images = {
+        win: new Image(),
+        lose: new Image()
+    };
+
+    this.images.win.src = 'images/game/win.png';
+    this.images.lose.src = 'images/game/lose.png';
+
     this.init();
     this.frame = 0;
 };
@@ -27,6 +35,10 @@ Display.prototype.draw = function (object) {
 };
 
 Display.prototype.run = function () {
+
+
+    var win = true;
+    var lose = false;
 
     this.frame++;
     this.frame %= FPS;
@@ -48,6 +60,15 @@ Display.prototype.run = function () {
 
     this.draw(player);
 
+    if(player.alive === false) {
+        player.imgindex++;
+
+        if(!(player.imgindex < player.images.length)) {
+            lose = true;
+        }
+
+        player.currimg = player.images[player.imgindex];
+    }
 
     // Draw aliens:
 
@@ -60,8 +81,17 @@ Display.prototype.run = function () {
             if (i.exploded === false) {
                 i.animate(this.frame);
                 this.draw(i);
+
+                if (i.alive === true) {
+                    win = false;
+
+                    if ((i.y + i.height > this.height - 16)) {
+                        lose = true;
+                    }
+                }
             }
         }
+
     }
 
     // Draw projectiles:
@@ -75,8 +105,23 @@ Display.prototype.run = function () {
                 delete projectiles[id];
                 continue;
             }
+
             this.draw(p);
             p.hit();
         }
+    }
+
+
+    // Check if Game is over:
+
+    if (win === true) {
+        this.context.drawImage(this.images.win, 0, (this.height - this.images.win.height) / 2)
+        window.clearInterval(interval);
+        return;
+    }
+
+    if (lose === true) {
+        this.context.drawImage(this.images.lose, 0, (this.height - this.images.lose.height) / 2)
+        window.clearInterval(interval);
     }
 };

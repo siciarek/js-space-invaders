@@ -22,9 +22,9 @@ var Invasion = function (display) {
         }
     }
 
-    this.stepVertical = 24;
     this.stepHorizontal = 8;
     this.oldStepHorizontal = this.stepHorizontal;
+    this.stepVertical = 16;
     this.speed = 30;
 
     this.dir = DIR_RIGHT;
@@ -39,6 +39,23 @@ Invasion.prototype.update = function (frame) {
                 var nx = alien.x + this.stepHorizontal;
                 var ny = alien.y;
                 alien.move(nx, ny);
+
+                if (Math.random() < 0.05) {
+                    if (alien.alive === true) {
+                        var fire = true;
+
+                        for (var tr = r + 1; tr < this.rows; tr++) {
+                            if (this.invaders[tr][c].exploded === false) {
+                                fire = false;
+                                break;
+                            }
+                        }
+
+                        if (fire === true) {
+                            alien.fire();
+                        }
+                    }
+                }
             }
         }
 
@@ -61,14 +78,19 @@ Invasion.prototype.update = function (frame) {
                     var alien = this.invaders[r][c];
                     var nx = alien.x + this.stepHorizontal;
                     var ny = alien.y;
-                    alien.move(nx, ny + 8);
+                    alien.move(nx, ny + this.stepVertical);
                 }
             }
 
-//            if(++this.progress % 3 === 0) {
-                var ystart = this.display.width;
-                saucer = new Saucer(ystart);
-//            }
+            if (++this.progress % 3 === 0) {
+                var xstart = this.display.width;
+                saucer = new Saucer(xstart);
+            }
+
+            if (this.progress % 2 === 0) {
+                this.speed = Math.ceil(this.speed / 2);
+                this.speed = this.speed < 4 ? 4 : this.speed;
+            }
         }
     }
 };

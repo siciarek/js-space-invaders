@@ -1,4 +1,4 @@
-var Saucer = function (ystart, imgdir) {
+var Saucer = function (xstart, imgdir) {
     imgdir = imgdir || 'images';
 
     var images = [
@@ -19,8 +19,8 @@ var Saucer = function (ystart, imgdir) {
     this.width = this.currimg.width;
     this.height = this.currimg.height;
 
-    this.x = ystart;
-    this.y = this.height - 16;
+    this.x = xstart;
+    this.y = 16;
 
     this.speed = -4;
 };

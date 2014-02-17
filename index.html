@@ -2,11 +2,8 @@
 <html>
 <head>
     <title>Space Invaders</title>
-<style>
-    body {
-        text-align: center;
-    }
-</style>
+
+    <link href="css/main.css" media="all" rel="stylesheet" type="text/css" />
 </head>
 <body>
 
@@ -18,10 +15,12 @@
     var display = null;
     var interval = 0;
 
-    var projectiles = {};
-    var invaders = [];
     var invasion = null;
     var saucer = null;
+    var player = null;
+
+    var projectiles = {};
+    var invaders = [];
 </script>
 
 <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>

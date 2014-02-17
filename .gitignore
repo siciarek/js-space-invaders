@@ -1,5 +1,7 @@
 .idea
 
+/temp
+
 lib-cov
 *.seed
 *.log
