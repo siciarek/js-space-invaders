@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Space Invaders</title>
+<style>
+    body {
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+
+<canvas id="display"></canvas>
+
+<script>
+    var FPS = 30;
+
+    var display = null;
+    var interval = 0;
+
+    var projectiles = {};
+    var invaders = [];
+    var invasion = null;
+    var saucer = null;
+</script>
+
+<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+<script src="js/Projectile.js"></script>
+<script src="js/Alien.js"></script>
+<script src="js/Invasion.js"></script>
+<script src="js/Player.js"></script>
+<script src="js/Saucer.js"></script>
+<script src="js/Display.js"></script>
+<script src="js/controls.js"></script>
+<script>
+
+    function update() {
+        display.run();
+    }
+
+    function main() {
+
+        display = new Display();
+        player = new Player(display);
+        invasion = new Invasion(display);
+
+        var tics = Math.ceil(1000 / FPS);
+        interval = window.setInterval(update, tics);
+    }
+
+    $(document).ready(function () {
+        main();
+    });
+
+</script>
+</body>
+</html>
