@@ -63,6 +63,25 @@ Display.prototype.run = function () {
         player.currimg = player.images[player.imgindex];
     }
 
+    // Draw shields:
+
+    var shieldscount = 4;
+
+    for(var s = 0; s < shieldscount; s++) {
+        var img = new Image();
+        img.src = 'images/player/shield.png';
+
+        var offset = s * this.width / shieldscount - 8;
+
+        var shield = {
+            currimg: img,
+            x: 64 + offset,
+            y: this.height - img.height - 64
+        };
+
+        this.draw(shield);
+    }
+
     // Draw aliens:
 
     invasion.update(this.frame);
