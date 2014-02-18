@@ -52,7 +52,7 @@ Invasion.prototype.update = function (frame) {
                         }
 
                         if (fire === true) {
-//                            alien.fire();
+                            alien.fire();
                         }
                     }
                 }
