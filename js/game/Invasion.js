@@ -93,4 +93,4 @@ Invasion.prototype.update = function (frame) {
             }
         }
     }
-};
+}

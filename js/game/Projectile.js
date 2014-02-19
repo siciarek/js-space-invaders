@@ -61,4 +61,11 @@ Projectile.prototype.hit = function () {
     else {
         player.hit(this);
     }
+
+    for (var s in player.shields) {
+        if (player.shields.hasOwnProperty(s)) {
+            var shield = player.shields[s];
+            shield.hit(this);
+        }
+    }
 };

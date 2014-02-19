@@ -1,10 +1,9 @@
 /**
- * Controls
+ * Controller
  */
 
 var KEY_RIGTH = 39;
 var KEY_LEFT = 37;
-
 var KEY_UP = 38;
 var KEY_SPACE = 32;
 
@@ -28,14 +27,17 @@ $(document).keydown(function (evt) {
 
 $(document).keyup(function (evt) {
 
-
-
-    if (interval === null && evt.keyCode === KEY_SPACE) {
-        main();
-        return;
-    }
-
-    if (evt.keyCode === KEY_SPACE || evt.keyCode === KEY_UP || evt.keyCode === KEY_W || evt.keyCode === KEY_S) {
-        player.fire();
+    switch (evt.keyCode) {
+        case KEY_SPACE:
+        case KEY_UP:
+        case KEY_W:
+        case KEY_S:
+            if (interval === null) {
+                 main();
+            }
+            else {
+                player.fire();
+            }
+            break;
     }
 });

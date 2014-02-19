@@ -6,6 +6,7 @@ var Display = function (canvas) {
     this.canvas.setAttribute('height', 600);
 
     this.context = this.canvas.getContext('2d');
+
     this.width = this.canvas.width;
     this.height = this.canvas.height;
 
@@ -28,7 +29,6 @@ Display.prototype.draw = function (object) {
 };
 
 Display.prototype.run = function () {
-
 
     var win = true;
     var lose = false;
@@ -53,10 +53,10 @@ Display.prototype.run = function () {
 
     this.draw(player);
 
-    if(player.alive === false) {
+    if (player.alive === false) {
         player.imgindex++;
 
-        if(!(player.imgindex < player.images.length)) {
+        if (!(player.imgindex < player.images.length)) {
             lose = true;
         }
 
@@ -65,21 +65,16 @@ Display.prototype.run = function () {
 
     // Draw shields:
 
-    var shieldscount = 4;
+    for (var s in player.shields) {
+        if (player.shields.hasOwnProperty(s)) {
+            var shield = player.shields[s];
+            this.draw(shield);
 
-    for(var s = 0; s < shieldscount; s++) {
-        var img = new Image();
-        img.src = 'images/player/shield.png';
-
-        var offset = s * this.width / shieldscount - 8;
-
-        var shield = {
-            currimg: img,
-            x: 64 + offset,
-            y: this.height - img.height - 64
-        };
-
-        this.draw(shield);
+            for(var d = 0; d < shield.damages.length; d++) {
+                var dmg = shield.damages[d];
+                this.draw(dmg);
+            }
+        }
     }
 
     // Draw aliens:
@@ -122,7 +117,6 @@ Display.prototype.run = function () {
             p.hit();
         }
     }
-
 
     // Check if Game is over:
 

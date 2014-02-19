@@ -15,7 +15,7 @@
     var FPS = 30;
 
     var display = null;
-    var interval = 0;
+    var interval = null;
 
     var invasion = null;
     var saucer = null;
@@ -25,31 +25,33 @@
     var invaders = [];
 </script>
 
-<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-<script src="js/Projectile.js"></script>
-<script src="js/Alien.js"></script>
-<script src="js/Invasion.js"></script>
-<script src="js/Player.js"></script>
-<script src="js/Saucer.js"></script>
-<script src="js/Game.js"></script>
-<script src="js/Display.js"></script>
-<script src="js/controls.js"></script>
+<!-- TODO: to consider CDN for jquery -->
+<script src="js/jquery.js"></script>
+
+<script src="js/game/Damage.js"></script>
+<script src="js/game/Shield.js"></script>
+<script src="js/game/Projectile.js"></script>
+<script src="js/game/Alien.js"></script>
+<script src="js/game/Invasion.js"></script>
+<script src="js/game/Player.js"></script>
+<script src="js/game/Saucer.js"></script>
+<script src="js/game/Game.js"></script>
+<script src="js/game/Display.js"></script>
+<script src="js/game/controller.js"></script>
+
 <script>
 
-    function update() {
-        display.run();
-    }
-
     function main() {
-
         display = new Display();
         player = new Player(display);
         invasion = new Invasion(display);
-
         game = new Game();
+        display.run();
 
         var tics = Math.ceil(1000 / FPS);
-        interval = window.setInterval(update, tics);
+        interval = window.setInterval(function() {
+            display.run();
+        }, tics);
     }
 
     $(document).ready(function () {

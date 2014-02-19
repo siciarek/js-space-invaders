@@ -17,8 +17,12 @@ var Alien = function (type, imgdir) {
     this.imgindex = 0;
     this.currimg = this.images[this.imgindex];
 
+
     this.width = this.currimg.width;
     this.height = this.currimg.height;
+
+    this.width = 16 * 4;
+    this.height = 8 * 4;
 
     this.x = 0;
     this.y = 0;
@@ -32,7 +36,7 @@ Alien.prototype.move = function (x, y) {
     this.y = y;
 };
 
-Alien.prototype.fire = function() {
+Alien.prototype.fire = function () {
 
     var types = [
         'plunger',
@@ -54,7 +58,7 @@ Alien.prototype.fire = function() {
 
 Alien.prototype.animate = function (frame) {
     if (frame % 10 === 0) {
-        if(this.alive === false) {
+        if (this.alive === false) {
             this.imgindex = this.images.length - 1;
             this.exploded = true;
         }

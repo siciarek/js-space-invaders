@@ -17,11 +17,32 @@ var Player = function(display, imgdir) {
     this.currimg = this.images[this.imgindex];
 
     this.top = 16;
+
     this.width = this.currimg.width;
     this.height = this.currimg.height;
+
+    this.width = 16 * 4;
+    this.height = 8 * 4;
+
     this.x = (this.display.width - this.width) / 2;
     this.y = (this.display.height - this.height - this.top);
     this.step = 8;
+
+
+    this.shields = {};
+
+    this.shieldcount = 4;
+
+    for(var s = 0; s < this.shieldcount; s++) {
+
+        var shield = new Shield(0, 0);
+
+        var x = 64 + s * this.display.width / this.shieldcount - 8;
+        var y = this.display.height - shield.height - 64;
+
+        shield.move(x, y);
+        this.shields[shield.id] = shield;
+    }
 };
 
 Player.prototype.hit = function (projectile) {
